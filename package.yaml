@@ -57,12 +57,16 @@ library:
       - -Wall
       - -fwarn-tabs
       - -O0
+      - -ddump-splices
+      - -ddump-to-file
       cpp-options: -DDEVELOPMENT
     else:
       ghc-options:
       - -Wall
       - -fwarn-tabs
       - -O2
+      - -ddump-splices
+      - -ddump-to-file
 
 # Runnable executable for our application
 executables:

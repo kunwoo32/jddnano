@@ -69,6 +69,89 @@ type Form x = Html -> MForm (HandlerFor App) (FormResult x, Widget)
 type DB a = forall (m :: * -> *).
     (MonadIO m) => ReaderT SqlBackend m a
 
+navbarWidget :: Widget
+navbarWidget = do
+    mcurrentRoute <- getCurrentRoute
+    -- Define the menu items of the header.
+    let menuItems =
+            [ NavbarLeft $ MenuItem
+                { menuItemLabel = "Home"
+                , menuItemRoute = HomeR
+                , menuItemAccessCallback = True
+                }
+            , NavbarLeft $ MenuItem
+                { menuItemLabel = "Products"
+                , menuItemRoute = ProductsR
+                , menuItemAccessCallback = True
+                }
+            , NavbarLeft $ MenuItem
+                { menuItemLabel = "Contact"
+                , menuItemRoute = HomeR
+                , menuItemAccessCallback = False
+                }
+            , NavbarLeft $ MenuItem
+                { menuItemLabel = "Profile"
+                , menuItemRoute = ProfileR
+                , menuItemAccessCallback = False
+                }
+            , NavbarRight $ MenuItem
+                { menuItemLabel = "English"
+                , menuItemRoute = HomeR
+                , menuItemAccessCallback = False
+                }
+            , NavbarRight $ MenuItem
+                { menuItemLabel = "简体字"
+                , menuItemRoute = HomeR
+                , menuItemAccessCallback = False
+                }
+            , NavbarRight $ MenuItem
+                { menuItemLabel = "繁體字"
+                , menuItemRoute = HomeR
+                , menuItemAccessCallback = False
+                }
+            , NavbarRight $ MenuItem
+                { menuItemLabel = "Login"
+                , menuItemRoute = AuthR LoginR
+                , menuItemAccessCallback = False
+                }
+            , NavbarRight $ MenuItem
+                { menuItemLabel = "Logout"
+                , menuItemRoute = AuthR LogoutR
+                , menuItemAccessCallback = False
+                }
+            ]
+
+    let navbarLeftMenuItems = [x | NavbarLeft x <- menuItems]
+    let navbarRightMenuItems = [x | NavbarRight x <- menuItems]
+
+    let navbarLeftFilteredMenuItems = [x | x <- navbarLeftMenuItems, menuItemAccessCallback x]
+    let navbarRightFilteredMenuItems = [x | x <- navbarRightMenuItems, menuItemAccessCallback x]
+    
+    $(widgetFile "navbar")
+
+homeLayout :: Widget -> Handler Html
+homeLayout widget = do
+    master <- getYesod
+    mmsg <- getMessage
+
+    muser <- maybeAuthPair
+    mcurrentRoute <- getCurrentRoute
+
+    -- Get the breadcrumbs, as defined in the YesodBreadcrumbs instance.
+    (title, parents) <- breadcrumbs
+
+
+    -- We break up the default layout into two components:
+    -- default-layout is the contents of the body tag, and
+    -- default-layout-wrapper is the entire page. Since the final
+    -- value passed to hamletToRepHtml cannot be a widget, this allows
+    -- you to use normal widget features in default-layout.
+
+    pc <- widgetToPageContent $ do
+        let navbar = navbarWidget
+        $(widgetFile "home-layout")
+    withUrlRenderer $(hamletFile "templates/default-layout-wrapper.hamlet")
+
 -- Please see the documentation for the Yesod typeclass. There are a number
 -- of settings which can be configured by overriding methods here.
 instance Yesod App where
@@ -108,35 +191,6 @@ instance Yesod App where
         -- Get the breadcrumbs, as defined in the YesodBreadcrumbs instance.
         (title, parents) <- breadcrumbs
 
-        -- Define the menu items of the header.
-        let menuItems =
-                [ NavbarLeft $ MenuItem
-                    { menuItemLabel = "Home"
-                    , menuItemRoute = HomeR
-                    , menuItemAccessCallback = True
-                    }
-                , NavbarLeft $ MenuItem
-                    { menuItemLabel = "Profile"
-                    , menuItemRoute = ProfileR
-                    , menuItemAccessCallback = isJust muser
-                    }
-                , NavbarRight $ MenuItem
-                    { menuItemLabel = "Login"
-                    , menuItemRoute = AuthR LoginR
-                    , menuItemAccessCallback = isNothing muser
-                    }
-                , NavbarRight $ MenuItem
-                    { menuItemLabel = "Logout"
-                    , menuItemRoute = AuthR LogoutR
-                    , menuItemAccessCallback = isJust muser
-                    }
-                ]
-
-        let navbarLeftMenuItems = [x | NavbarLeft x <- menuItems]
-        let navbarRightMenuItems = [x | NavbarRight x <- menuItems]
-
-        let navbarLeftFilteredMenuItems = [x | x <- navbarLeftMenuItems, menuItemAccessCallback x]
-        let navbarRightFilteredMenuItems = [x | x <- navbarRightMenuItems, menuItemAccessCallback x]
 
         -- We break up the default layout into two components:
         -- default-layout is the contents of the body tag, and
@@ -145,7 +199,7 @@ instance Yesod App where
         -- you to use normal widget features in default-layout.
 
         pc <- widgetToPageContent $ do
-            addStylesheet $ StaticR css_bootstrap_css
+            let navbar = navbarWidget
             $(widgetFile "default-layout")
         withUrlRenderer $(hamletFile "templates/default-layout-wrapper.hamlet")
 
@@ -163,6 +217,8 @@ instance Yesod App where
     isAuthorized (AuthR _) _ = return Authorized
     isAuthorized CommentR _ = return Authorized
     isAuthorized HomeR _ = return Authorized
+    isAuthorized ProductsR _ = return Authorized
+    isAuthorized (ProductCategoryR _) _ = return Authorized
     isAuthorized FaviconR _ = return Authorized
     isAuthorized RobotsR _ = return Authorized
     isAuthorized (StaticR _) _ = return Authorized

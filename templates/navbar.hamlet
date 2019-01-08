@@ -1,0 +1,18 @@
+<!-- Static navbar -->
+<nav .navbar.navbar-expand-lg.navbar-dark style="z-index:10">
+    <div .container>
+        <div .navbar-brand style="font-size:2rem">JDD Nano
+        <button .navbar-toggler data-toggle="collapse" data-target="#navbar">
+            <span .navbar-toggler-icon></span>
+
+        <div #navbar .collapse.navbar-collapse>
+            <ul .navbar-nav>
+                $forall MenuItem label route _ <- navbarLeftFilteredMenuItems
+                    <li .nav-item :Just route == mcurrentRoute:.active>
+                        <a .nav-link href="@{route}">#{label}
+
+            <ul .navbar-nav.ml-auto>
+                $forall MenuItem label route _ <- navbarRightFilteredMenuItems
+                    <li .nav-item :Just route == mcurrentRoute:.active>
+                        <a .nav-link href="@{route}">#{label}
+

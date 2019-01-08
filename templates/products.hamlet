@@ -1,0 +1,13 @@
+<div .container style="min-height:600px; padding-top:1.5rem; padding-bottom:1.5rem">
+    <div .text-center.ml-auto.mr-auto style="font-size:3rem; padding-top:1.5rem; padding-bottom:1.5rem">Product Catalogue
+    <div .row>
+        $forall ProductCategory ident title image _ <- categories
+            <div .col-md-4>
+                <a href=@{ProductCategoryR ident} style="width:300px; height:300px">
+                    <div style="position:relative; margin-top:2rem; margin-bottom:2rem; width:300px; height:300px">
+                        $maybe pic <- image
+                            <img src=@{StaticR $ StaticRoute ["images", pic] []} style="width:300px; height:300px">
+                        $nothing
+                            <div>
+                        <div style="position:absolute; bottom:0; width:100%; background-color:rgba(0,0,0,0.5)">
+                            <div .text-center style="font-size:2rem; color:white">#{title}

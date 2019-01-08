@@ -16,3 +16,15 @@ Comment json -- Adding "json" causes ToJSON and FromJSON instances to be derived
     userId UserId Maybe
     deriving Eq
     deriving Show
+ProductCategory sql=product_category
+    productCategoryIdent Text sql=ident
+    productCategoryTitle Text sql=title
+    productCategoryImage Text Maybe sql=image
+    productCategoryPriority Int default=0 sql=priority
+    UniqueProductCategory productCategoryIdent
+Product
+    productIdent Text sql=ident
+    productImage Text Maybe sql=image
+    productDescription Textarea Maybe sql=description
+    productCategory ProductCategoryId sql=category
+    productCreated UTCTime default=now() sql=created

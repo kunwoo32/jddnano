@@ -8,6 +8,8 @@ module Handler.Home where
 import Import
 import Yesod.Form.Bootstrap3 (BootstrapFormLayout (..), renderBootstrap3)
 import Text.Julius (RawJS (..))
+import Text.Lucius (Css)
+
 
 -- Define our data that will be used for creating the form.
 data FileForm = FileForm
@@ -24,15 +26,10 @@ data FileForm = FileForm
 -- inclined, or create a single monolithic file.
 getHomeR :: Handler Html
 getHomeR = do
-    (formWidget, formEnctype) <- generateFormPost sampleForm
-    let submission = Nothing :: Maybe FileForm
-        handlerName = "getHomeR" :: Text
-    allComments <- runDB $ getAllComments
-
-    defaultLayout $ do
-        let (commentFormId, commentTextareaId, commentListId) = commentIds
-        aDomId <- newIdent
+    homeLayout $ do
         setTitle "Welcome To Yesod!"
+        la <- formattedLanguages
+        let langs = intercalate ", " la
         $(widgetFile "homepage")
 
 postHomeR :: Handler Html
@@ -48,6 +45,8 @@ postHomeR = do
         let (commentFormId, commentTextareaId, commentListId) = commentIds
         aDomId <- newIdent
         setTitle "Welcome To Yesod!"
+        la <- formattedLanguages
+        let langs = intercalate ", " la
         $(widgetFile "homepage")
 
 sampleForm :: Form FileForm

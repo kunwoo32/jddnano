@@ -12,6 +12,8 @@
 /products ProductsR GET
 /products/#Text ProductCategoryR GET
 
+/item/#Text ItemR GET
+
 /comments CommentR POST
 
 /profile ProfileR GET

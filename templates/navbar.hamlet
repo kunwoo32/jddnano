@@ -1,15 +1,26 @@
 <!-- Static navbar -->
 <nav .navbar.navbar-expand-lg.navbar-dark style="z-index:10">
     <div .container>
-        <div .navbar-brand style="font-size:2rem">JDD Nano
+        <a href=@{HomeR}>
+            <div .navbar-brand style="font-size:2rem">JDD Nano
         <button .navbar-toggler data-toggle="collapse" data-target="#navbar">
             <span .navbar-toggler-icon></span>
 
         <div #navbar .collapse.navbar-collapse>
             <ul .navbar-nav>
+                <!--
                 $forall MenuItem label route _ <- navbarLeftFilteredMenuItems
                     <li .nav-item :Just route == mcurrentRoute:.active>
                         <a .nav-link href="@{route}">#{label}
+                -->
+                <li .nav-item>
+                    <a .nav-link href=@{HomeR}>Home
+                <li .nav-item.hover-dropdown>
+                    <a .nav-link href=@{ProductsR}>Products
+                    <div .hover-dropdown-content>
+                        <div style="width:100%; height:26px;">
+                        <div style="width:100%; background-color:#f2f6ff">
+                            ^{submenu}
 
             <ul .navbar-nav.ml-auto>
                 $forall MenuItem label route _ <- navbarRightFilteredMenuItems

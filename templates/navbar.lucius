@@ -1,0 +1,13 @@
+.hover-dropdown:hover .hover-dropdown-content {
+    display: block;
+    z-index: 5;
+}
+
+.hover-dropdown-content {
+    display: none;
+    position: absolute;
+    top: 48px;
+    left: 0;
+    width: 100%;
+    border-bottom: 1px solid #bbbbbb;
+}

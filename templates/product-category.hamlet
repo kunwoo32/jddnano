@@ -1,0 +1,41 @@
+<div style="min-height:500px; padding-left:20px; padding-right:20px; padding-bottom:1.5rem">
+
+    ^{submenu}
+
+    <div .text-center.mx-auto style="font-size:3rem; padding-top:1.5rem; padding-bottom:1.5rem">#{title}
+
+    <div .row>
+        <div .col-md-6>
+            <a href=@{ItemR "sabbat"}>
+                <div style="border:1px solid #bbbbbb">
+                    <div style="background-image:url(@{StaticR images_sabbatCover_jpg}); background-position:center; background-size:cover; width:100%; height:400px">
+                    <div style="background-color:white; padding-left:5rem">
+                        <div style="padding:1rem; font-size:2rem; color:black">Sabbat E 12 Bluetooth Earbuds
+                        <div style="padding:0.75rem; font-size:1.5rem; color:black">
+                            Bluetooth 5.0<br>4 mic noise cancelation technology<br>6 hour battery life
+        <div .col-md-6>
+            <a href=@{ItemR "x12pro"}>
+                <div style="border:1px solid #bbbbbb">
+                    <div style="background-image:url(@{StaticR images_x12ProCover_jpg}); background-position:center; background-size:cover; width:100%; height:400px">
+                    <div style="background-color:white; padding-left:5rem">
+                        <div style="padding:1rem; font-size:2rem; color:black">X12 Pro Bluetooth Earbuds
+                        <div style="padding:0.75rem; font-size:1.5rem; color:black">
+                            Bluetooth 5.0<br>Dual Sound Channels<br>IPX5 Waterproof
+
+        <!--
+        <div .col-md-6>
+            <img src=@{StaticR images_banner4_jpg} style="width:100%; height:auto">
+            <div style="background-color:white; padding-left:5rem">
+                <div style="padding:1rem; font-size:2rem">Fancy Car Charger
+                <div style="padding:0.75rem; font-size:1.5rem">Glossy tan color<br>2.5W power<br>2 Micro USB plugs
+        <div .col-md-6>
+            <img src=@{StaticR images_banner4_jpg} style="width:100%; height:auto">
+            <div style="background-color:white; padding-left:5rem">
+                <div style="padding:1rem; font-size:2rem">Fancy Car Charger
+                <div style="padding:0.75rem; font-size:1.5rem">Glossy tan color<br>2.5W power<br>2 Micro USB plugs
+        <div .col-md-6>
+            <img src=@{StaticR images_banner2_jpg} style="width:100%; height:auto">
+            <div style="background-color:white; padding-left:5rem">
+                <div style="padding:1rem; font-size:2rem">Fancy Car Charger
+                <div style="padding:0.75rem; font-size:1.5rem">Glossy tan color<br>2.5W power<br>2 Micro USB plugs
+        -->

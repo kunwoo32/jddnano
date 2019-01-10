@@ -1,0 +1,10 @@
+.submenu-text {
+    font-size: 0.8rem;
+    color: black;
+    padding:0.4rem;
+}
+
+.submenu-image {
+    height: 30px;
+    width: auto;
+}

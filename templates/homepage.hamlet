@@ -7,20 +7,20 @@
         <li data-target="#bannerCarousel" data-slide-to="4"></li>
     <div class="carousel-inner">
         <div class="carousel-item active">
-            <div style="background-image:url(@{StaticR images_twoHeadphonesBanner_jpg}); background-position:center; width:100%; height:100vh">
-            <div style="position:absolute; top:0; width:100%; height:100vh">
-                <div .container style="margin-top:400px">
+            <div style="background-image:url(@{StaticR images_twoHeadphonesBanner_jpg}); background-position:center; background-size:cover; width:100%; height:100vh">
+            <div style="position:absolute; top:0; width:100%; height:100vh; display:flex">
+                <div .container.my-auto>
                     <div style="font-size:2rem">Lorem Ipsum
                     <div style="font-size:3rem">Dolor sit amet
-                    <div style="font-size:2rem">Consectetur adipiscing elit, sed do eiusmod
+                    <div style="font-size:2rem">Consectetur adipiscing elit sed do
         <div .carousel-item>
-            <div style="background-image:url(@{StaticR images_banner2_jpg}); background-position:bottom; width:100%; height:100vh">
+            <div style="background-image:url(@{StaticR images_banner2_jpg}); background-position:bottom; background-size:cover; width:100%; height:100vh">
         <div .carousel-item>
-            <div style="background-image:url(@{StaticR images_banner3_jpg}); background-position:top; width:100%; height:100vh">
+            <div style="background-image:url(@{StaticR images_banner3_jpg}); background-position:top; background-size:cover; width:100%; height:100vh">
         <div .carousel-item>
-            <div style="background-image:url(@{StaticR images_banner4_jpg}); background-position:center; width:100%; height:100vh">
+            <div style="background-image:url(@{StaticR images_banner4_jpg}); background-position:center; background-size:cover; width:100%; height:100vh">
         <div class="carousel-item">
-            <div style="background-image:url(@{StaticR images_banner5_jpg}); background-position:center; width:100%; height:100vh">
+            <div style="background-image:url(@{StaticR images_banner5_jpg}); background-position:center; background-size:cover; width:100%; height:100vh">
     <a class="carousel-control-prev" href="#bannerCarousel" role="button" data-slide="prev">
         <span class="carousel-control-prev-icon" aria-hidden="true"></span>
         <span class="sr-only">Previous</span>

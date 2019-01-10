@@ -127,6 +127,7 @@ navbarWidget = do
     let navbarLeftFilteredMenuItems = [x | x <- navbarLeftMenuItems, menuItemAccessCallback x]
     let navbarRightFilteredMenuItems = [x | x <- navbarRightMenuItems, menuItemAccessCallback x]
     
+    let submenu = $(widgetFile "product-submenu")
     $(widgetFile "navbar")
 
 homeLayout :: Widget -> Handler Html
@@ -219,6 +220,7 @@ instance Yesod App where
     isAuthorized HomeR _ = return Authorized
     isAuthorized ProductsR _ = return Authorized
     isAuthorized (ProductCategoryR _) _ = return Authorized
+    isAuthorized (ItemR _) _ = return Authorized
     isAuthorized FaviconR _ = return Authorized
     isAuthorized RobotsR _ = return Authorized
     isAuthorized (StaticR _) _ = return Authorized

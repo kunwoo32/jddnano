@@ -1,0 +1,30 @@
+<div .container style="padding-top:32px;">
+    <div .row>
+        <div .col>
+            <a href=@{ProductCategoryR "headphones"}>
+                <img .d-block.mx-auto.submenu-image src=@{StaticR images_iconHeadphones_png}>
+                <div .text-center.submenu-text>Headphones
+        <div .col>
+            <a href=@{ProductCategoryR "speakers"}>
+                <img .d-block.mx-auto.submenu-image src=@{StaticR images_iconSpeakers_png}>
+                <div .text-center.submenu-text>Speakers
+        <div .col>
+            <a href=@{ProductCategoryR "phoneCases"}>
+                <img .d-block.mx-auto.submenu-image src=@{StaticR images_iconPhoneCases_png}>
+                <div .text-center.submenu-text>Phone Cases
+        <div .col>
+            <a href=@{ProductCategoryR "drones"}>
+                <img .d-block.mx-auto.submenu-image src=@{StaticR images_iconDrones_png}>
+                <div .text-center.submenu-text>Drones
+        <div .col>
+            <a href=@{ProductCategoryR "chargingCables"}>
+                <img .d-block.mx-auto.submenu-image src=@{StaticR images_iconChargingCables_png}>
+                <div .text-center.submenu-text>Charging Cables
+        <div .col>
+            <a href=@{ProductCategoryR "wirelessChargers"}>
+                <img .d-block.mx-auto.submenu-image src=@{StaticR images_iconWirelessChargers_png}>
+                <div .text-center.submenu-text>Wireless Chargers
+        <div .col>
+            <a href=@{ProductCategoryR "carPhoneMounts"}>
+                <img .d-block.mx-auto.submenu-image src=@{StaticR images_iconCarPhoneMounts_png}>
+                <div .text-center.submenu-text>Car Phone Mounts

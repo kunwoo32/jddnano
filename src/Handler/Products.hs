@@ -20,7 +20,11 @@ import Text.Julius (RawJS (..))
 -- functions. You can spread them across multiple files if you are so
 -- inclined, or create a single monolithic file.
 getProductsR :: Handler Html
-getProductsR = do
+getProductsR = getProductCategoryR "products"
+
+
+{--
+do
     entities <- runDB $ selectList [] []
     let categories = fmap entityVal entities
     modTimes <- liftIO $ forM categories (\(ProductCategory _ _ image _) ->
@@ -31,57 +35,26 @@ getProductsR = do
         let langs = intercalate ", " la
 
         $(widgetFile "products")
+--}
 
 getProductCategoryR :: Text -> Handler Html
-getProductCategoryR _ = getProductsR
-{-
-do
-    let matching = [c | c <-categories, productCategoryIdent c == cat]
-    maybe
-        notFound
-        (\category -> defaultLayout $ do
-            setTitle $ toHtml $ productCategoryLabel category
-            $(widgetFile "productCategory"))
-        (headMay matching)
+getProductCategoryR catText = do
+    title <- if catText == "products"
+                 then
+                     return "Product Catalog"
+                 else do
+                     Entity _ (ProductCategory ident categoryTitle image priority) <- runDB $ getBy404 $ UniqueProductCategory catText
+                     return categoryTitle
+    defaultLayout $ do
+        setTitle $ toHtml title
+        la <- formattedLanguages
+        let langs = intercalate ", " la
 
-data ProductCategory = ProductCategory
-    { productCategoryIdent :: Text
-    , productCategoryLabel :: Text
-    , productCategoryImage :: Maybe Text
-    }
+        let submenu = $(widgetFile "product-submenu")
+        $(widgetFile "product-category")
 
-data Product = Product
-    { productIdent :: Text
-    , productImage :: Maybe Text
-    , productDescription :: Maybe Text
-    , productCategory :: ProductCategory
-    }
-
-categories = [headphones, speakers, cases, drones, cables]
-
-headphones = ProductCategory
-    { productCategoryIdent = "headphones"
-    , productCategoryLabel = "Headphones"
-    , productCategoryImage = Just "categoryHeadphones.jpg"
-    }
-speakers = ProductCategory
-    { productCategoryIdent = "speakers"
-    , productCategoryLabel = "Speakers"
-    , productCategoryImage = Just "categorySpeakers.jpg"
-    }
-cases = ProductCategory
-    { productCategoryIdent = "phoneCases"
-    , productCategoryLabel = "Phone Cases"
-    , productCategoryImage = Just "categoryCases.jpg"
-    }
-drones = ProductCategory
-    { productCategoryIdent = "drones"
-    , productCategoryLabel = "Drones"
-    , productCategoryImage = Just "categoryDrones.jpg"
-    }
-cables = ProductCategory
-    { productCategoryIdent = "chargingCables"
-    , productCategoryLabel = "Charging Cables"
-    , productCategoryImage = Just "categoryCables.jpg"
-    }
--}
+getItemR :: Text -> Handler Html
+getItemR item =
+    defaultLayout $ do
+        let submenu = $(widgetFile "product-submenu")
+        if item == "sabbat" then $(widgetFile "item") else $(widgetFile "x12pro")

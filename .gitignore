@@ -21,3 +21,4 @@ cabal.sandbox.config
 \#*
 jddnano.cabal
 *.dump-splices
+dynamic/

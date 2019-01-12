@@ -1,5 +1,5 @@
 <!-- Static navbar -->
-<nav .navbar.navbar-expand-lg.navbar-dark style="z-index:10">
+<nav .navbar.navbar-expand-lg.navbar-dark.fixed-top style="z-index:10">
     <div .container>
         <a href=@{HomeR}>
             <div .navbar-brand style="font-size:2rem">JDD Nano
@@ -16,11 +16,12 @@
                 <li .nav-item>
                     <a .nav-link href=@{HomeR}>Home
                 <li .nav-item.hover-dropdown>
-                    <a .nav-link href=@{ProductsR}>Products
+                    <a .nav-link.dropdown-toggle href=@{ProductsR}>Products
                     <div .hover-dropdown-content>
                         <div style="width:100%; height:26px;">
-                        <div style="width:100%; background-color:#f2f6ff">
+                        <div style="width:100%; background-color:#f2f6ff; border-bottom:1px solid #bbbbbb">
                             ^{submenu}
+                        <div style="width:100%; height:50px">
 
             <ul .navbar-nav.ml-auto>
                 $forall MenuItem label route _ <- navbarRightFilteredMenuItems

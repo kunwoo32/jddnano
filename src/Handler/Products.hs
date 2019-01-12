@@ -5,7 +5,9 @@
 {-# LANGUAGE TypeFamilies #-}
 module Handler.Products where
 
-import System.Directory (getModificationTime)
+import System.Directory (getModificationTime, listDirectory, doesDirectoryExist, doesFileExist)
+import System.FilePath (splitExtension, splitPath)
+import System.Random
 
 import Import
 import Yesod.Form.Bootstrap3 (BootstrapFormLayout (..), renderBootstrap3)
@@ -37,8 +39,62 @@ do
         $(widgetFile "products")
 --}
 
+itemsUrl = "dynamic" </> "items"
+
+categoryTitles :: HashMap Text Text
+categoryTitles = mapFromList [("headphones","Heaphones")
+                             ,("speakers","Speakers")
+                             ,("phoneCases","Phone Cases")
+                             ,("drones","Drones")
+                             ,("chargingCables","Charging Cables")
+                             ,("wirelessChargers", "Wireless chargers")
+                             ,("carPhoneMounts","Car Phone Mounts")]
+
 getProductCategoryR :: Text -> Handler Html
 getProductCategoryR catText = do
+    if catText == "products"
+    then do
+        categories <- liftIO $ listDirectory itemsUrl
+        itemData <- liftIO $ fmap join $ forM categories (productList . pack)
+        let title = "Product Catalog" :: Text
+        defaultLayout $ do
+            setTitle $ "Product Catalog"
+            let submenu = $(widgetFile "product-submenu")
+            let numCols = "col-md-3" :: Text
+            $(widgetFile "product-category")
+    else do
+        let categoryUrl = itemsUrl </> unpack catText
+        exists <- liftIO $ doesDirectoryExist $ categoryUrl
+        if exists
+            then do
+                itemData <- liftIO $ productList catText
+                let title = fromMaybe catText (lookup catText categoryTitles)
+                defaultLayout $ do
+                    setTitle $ toHtml catText
+                    let numCols = "col-md-6" :: Text
+                    let submenu = $(widgetFile "product-submenu")
+                    $(widgetFile "product-category")
+            else
+                notFound
+
+productList :: Text -> IO [(Text, Text, Textarea, (Route App, [(Text,Text)]))]
+productList catText = do
+    let categoryUrl = itemsUrl </> unpack catText
+    items <- listDirectory categoryUrl >>=
+        filterM (\x -> do
+            let itemUrl = categoryUrl </> x
+            a <- doesFileExist $ itemUrl </> "name.txt"
+            b <- doesFileExist $ itemUrl </> "description.txt"
+            c <- doesFileExist $ itemUrl </> "cover.jpg"
+            return $ a && b && c)
+    forM items (\x -> do
+        let itemUrl = categoryUrl </> x
+        name <- readFileUtf8 $ itemUrl </> "name.txt"
+        description <- fmap (fromString . unpack) (readFileUtf8 $ itemUrl </> "description.txt") :: IO Textarea
+        etag <- randomIO :: IO Word64
+        return (pack x, name, description, (DynamicImagesR catText (pack x) "cover.jpg", [("etag", pack $ show etag)])))
+{--
+do
     title <- if catText == "products"
                  then
                      return "Product Catalog"
@@ -52,9 +108,36 @@ getProductCategoryR catText = do
 
         let submenu = $(widgetFile "product-submenu")
         $(widgetFile "product-category")
-
+--}
 getItemR :: Text -> Handler Html
-getItemR item =
+getItemR item = do
+    p <- liftIO $ findItemDirectory item
+    itemPath <- fromMaybe notFound (fmap return p)
+    title <- liftIO $ readFileUtf8 $ itemPath </> "name.txt"
+    pictures <- liftIO
+        (fmap
+            (sort . filter (\file ->
+                let
+                    (base,ext) = splitExtension file
+                in
+                    ext==".jpg" && base/="cover"))
+            (listDirectory itemPath)) :: Handler [FilePath]
+
+    let category = pack $ filter (/='/') $ penultimate $ splitPath itemPath :: Text
+    pictureRoutes <- liftIO $ forM pictures (\p -> do
+        etag <- randomIO :: IO Word64
+        return (DynamicImagesR category item (pack p), [("etag", pack $ show etag)]))
+
     defaultLayout $ do
         let submenu = $(widgetFile "product-submenu")
-        if item == "sabbat" then $(widgetFile "item") else $(widgetFile "x12pro")
+        $(widgetFile "item")
+
+findItemDirectory :: Text -> IO (Maybe FilePath)
+findItemDirectory item = do
+    categories <- listDirectory itemsUrl
+    matching <- filterM doesDirectoryExist [itemsUrl </> c </> unpack item | c <- categories]
+    return $ headMay matching
+
+penultimate :: [a] -> a
+penultimate [x,_] = x
+penultimate (_:x:y:xs) = penultimate (x:y:xs)

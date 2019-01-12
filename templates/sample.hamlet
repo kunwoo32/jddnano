@@ -1,0 +1,2 @@
+$forall dir <- directories
+    <div>#{dir}

@@ -2,7 +2,7 @@
 
 <!-- Page Contents -->
 
-<div .bg-softBlue style="width:100%">
+<div .bg-softBlue style="width:100%; padding-top:74px">
     ^{widget}
 
 <!--

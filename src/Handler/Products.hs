@@ -5,6 +5,11 @@
 {-# LANGUAGE TypeFamilies #-}
 module Handler.Products where
 
+import qualified Data.ByteString as B
+import qualified Data.ByteString.Base64.URL
+import qualified Data.ByteString.Char8 as C
+import Data.ByteString.Builder (toLazyByteString, word64BE)
+import qualified Data.ByteString.Lazy as BL
 import System.Directory (getModificationTime, listDirectory, doesDirectoryExist, doesFileExist)
 import System.FilePath (splitExtension, splitPath)
 import System.Random
@@ -42,7 +47,7 @@ do
 itemsUrl = "dynamic" </> "items"
 
 categoryTitles :: HashMap Text Text
-categoryTitles = mapFromList [("headphones","Heaphones")
+categoryTitles = mapFromList [("headphones","Headphones")
                              ,("speakers","Speakers")
                              ,("phoneCases","Phone Cases")
                              ,("drones","Drones")
@@ -55,7 +60,8 @@ getProductCategoryR catText = do
     if catText == "products"
     then do
         categories <- liftIO $ listDirectory itemsUrl
-        itemData <- liftIO $ fmap join $ forM categories (productList . pack)
+        info <- liftIO $ fmap join $ forM categories (productList . pack)
+        let itemData = fmap fst $ sortBy (\(_,p) (_,q) -> compare q p) info
         let title = "Product Catalog" :: Text
         defaultLayout $ do
             setTitle $ "Product Catalog"
@@ -67,7 +73,8 @@ getProductCategoryR catText = do
         exists <- liftIO $ doesDirectoryExist $ categoryUrl
         if exists
             then do
-                itemData <- liftIO $ productList catText
+                info <- liftIO $ productList catText
+                let itemData = fmap fst $ sortBy (\(_,p) (_,q) -> compare q p) info
                 let title = fromMaybe catText (lookup catText categoryTitles)
                 defaultLayout $ do
                     setTitle $ toHtml catText
@@ -77,7 +84,7 @@ getProductCategoryR catText = do
             else
                 notFound
 
-productList :: Text -> IO [(Text, Text, Textarea, (Route App, [(Text,Text)]))]
+productList :: Text -> IO [((Text, Text, Textarea, (Route App, [(Text,Text)])), Bool)]
 productList catText = do
     let categoryUrl = itemsUrl </> unpack catText
     items <- listDirectory categoryUrl >>=
@@ -91,8 +98,9 @@ productList catText = do
         let itemUrl = categoryUrl </> x
         name <- readFileUtf8 $ itemUrl </> "name.txt"
         description <- fmap (fromString . unpack) (readFileUtf8 $ itemUrl </> "description.txt") :: IO Textarea
-        etag <- randomIO :: IO Word64
-        return (pack x, name, description, (DynamicImagesR catText (pack x) "cover.jpg", [("etag", pack $ show etag)])))
+        priority <- doesFileExist $ itemUrl </> "priority"
+        etag <- makeEtag
+        return ((pack x, name, description, (DynamicImagesR catText (pack x) "cover.jpg", [("etag", etag)])), priority))
 {--
 do
     title <- if catText == "products"
@@ -125,12 +133,17 @@ getItemR item = do
 
     let category = pack $ filter (/='/') $ penultimate $ splitPath itemPath :: Text
     pictureRoutes <- liftIO $ forM pictures (\p -> do
-        etag <- randomIO :: IO Word64
-        return (DynamicImagesR category item (pack p), [("etag", pack $ show etag)]))
+        etag <- makeEtag
+        return (DynamicImagesR category item (pack p), [("etag", etag)]))
 
     defaultLayout $ do
         let submenu = $(widgetFile "product-submenu")
         $(widgetFile "item")
+
+makeEtag :: IO Text
+makeEtag = do
+    word <- randomIO :: IO Word64
+    return $ pack $ filter (/='=') $ C.unpack $ Data.ByteString.Base64.URL.encode $ B.dropWhile (==0) $ BL.toStrict $ toLazyByteString $ word64BE word
 
 findItemDirectory :: Text -> IO (Maybe FilePath)
 findItemDirectory item = do

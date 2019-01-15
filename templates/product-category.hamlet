@@ -10,7 +10,7 @@
                 <a href=@{ItemR ident}>
                     <div style="border:1px solid #bbbbbb">
                         <div .product-image style="background-image:url(@?{image}); background-position:center; background-size:cover;">
-                        <div style="background-color:white; padding-left:5rem">
+                        <div .product-text>
                             <div .product-name>
                                 #{name}
                             <div .product-description>

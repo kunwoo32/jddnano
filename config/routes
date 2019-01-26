@@ -4,7 +4,8 @@
 /static StaticR Static appStatic
 /auth   AuthR   Auth   getAuth
 
-/images/#Text/#Text/#Text DynamicImagesR GET
+/images/items/#Text/#Text/#Text DynamicItemImagesR GET
+/images/staff/#Text/#Text DynamicStaffImagesR GET
 
 /favicon.ico FaviconR GET
 /robots.txt RobotsR GET
@@ -15,6 +16,8 @@
 /products/#Text ProductCategoryR GET
 
 /item/#Text ItemR GET
+
+/contact-us ContactUsR GET
 
 /comments CommentR POST
 

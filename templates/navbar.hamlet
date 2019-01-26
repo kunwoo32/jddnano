@@ -22,6 +22,8 @@
                         <div style="width:100%; background-color:#f2f6ff; border-bottom:1px solid #bbbbbb">
                             ^{submenu}
                         <div style="width:100%; height:50px">
+                <li .nav-item>
+                    <a .nav-link href=@{ContactUsR}>Contact Us
 
             <ul .navbar-nav.ml-auto>
                 $forall MenuItem label route _ <- navbarRightFilteredMenuItems

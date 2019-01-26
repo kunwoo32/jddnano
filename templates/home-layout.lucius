@@ -1,6 +1,6 @@
 .masthead,
 .navbar {
-    background-color: rgba(0,0,0,0.7);
+    background-color: #343a40;
 }
 
 .navbar-default .navbar-nav > .active > a {

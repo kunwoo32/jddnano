@@ -27,7 +27,15 @@ $else
                 ^{widget} -->
 
 <!-- Footer -->
-<footer .footer>
+<footer .footer style="padding-top:50px; padding-bottom:100px">
     <div .container>
+        <!--
         <p .text-white>
             #{appCopyright $ appSettings master}
+        -->
+        <div .text-white style="font-size:1rem; line-height:2">
+            JDD Nano
+        <div .text-white style="font-size:12px; line-height:2">
+            (+86) 18510605915<br>
+            Hongbao Road, Luohu District, Shenzhen, China<br>
+            COPYRIGHT © 2019 Shenzhen JDD Nano Technology Ltd. All rights reserved.

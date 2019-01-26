@@ -99,8 +99,8 @@ productList catText = do
         name <- readFileUtf8 $ itemUrl </> "name.txt"
         description <- fmap (fromString . unpack) (readFileUtf8 $ itemUrl </> "description.txt") :: IO Textarea
         priority <- doesFileExist $ itemUrl </> "priority"
-        etag <- makeEtag
-        return ((pack x, name, description, (DynamicImagesR catText (pack x) "cover.jpg", [("etag", etag)])), priority))
+        etag <- makeImageEtag
+        return ((pack x, name, description, (DynamicItemImagesR catText (pack x) "cover.jpg", [("etag", etag)])), priority))
 {--
 do
     title <- if catText == "products"
@@ -133,17 +133,12 @@ getItemR item = do
 
     let category = pack $ filter (/='/') $ penultimate $ splitPath itemPath :: Text
     pictureRoutes <- liftIO $ forM pictures (\p -> do
-        etag <- makeEtag
-        return (DynamicImagesR category item (pack p), [("etag", etag)]))
+        etag <- makeImageEtag
+        return (DynamicItemImagesR category item (pack p), [("etag", etag)]))
 
     defaultLayout $ do
         let submenu = $(widgetFile "product-submenu")
         $(widgetFile "item")
-
-makeEtag :: IO Text
-makeEtag = do
-    word <- randomIO :: IO Word64
-    return $ pack $ filter (/='=') $ C.unpack $ Data.ByteString.Base64.URL.encode $ B.dropWhile (==0) $ BL.toStrict $ toLazyByteString $ word64BE word
 
 findItemDirectory :: Text -> IO (Maybe FilePath)
 findItemDirectory item = do

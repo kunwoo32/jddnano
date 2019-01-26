@@ -9,11 +9,21 @@ import Import
 
 itemsUrl = "dynamic" </> "items"
 
-getDynamicImagesR :: Text -> Text -> Text -> Handler Html
-getDynamicImagesR c p f =
+getDynamicItemImagesR :: Text -> Text -> Text -> Handler Html
+getDynamicItemImagesR c p f =
     if takeExtension (unpack f) == ".jpg"
         then
             sendFile typeJpeg $ itemsUrl </> unpack c </> unpack p </> unpack f
+        else
+            notFound
+
+staffUrl = "dynamic" </> "staff"
+
+getDynamicStaffImagesR :: Text -> Text -> Handler Html
+getDynamicStaffImagesR c f =
+    if takeExtension (unpack f) == ".jpg"
+        then
+            sendFile typeJpeg $ staffUrl </> unpack c </> unpack f
         else
             notFound
 

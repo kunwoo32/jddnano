@@ -10,3 +10,7 @@
     left: 0;
     width: 100%;
 }
+
+.nav-item {
+    padding: 0 2rem;
+}

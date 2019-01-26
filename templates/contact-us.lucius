@@ -1,0 +1,31 @@
+img.profile {
+    height: 390px;
+    width: 390px;
+}
+
+.profile-row {
+    display: flex;
+    width:800px;
+    margin: 0 auto;
+    padding: 1rem 0;
+}
+
+.reversed {
+    flex-direction: row-reverse;
+}
+
+.profile-text-square {
+    width: 50%;
+    position: relative;
+}
+
+.profile-title {
+    font-size: 2rem;
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%,-50%);
+    -ms-transform: translate(-50%,-50%);
+    -webkit-transform: translate(-50%,-50%);
+    width: 300px;
+}

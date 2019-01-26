@@ -47,7 +47,7 @@ stanzas:
     actions:
       - host: www.jddnano.com
         # secure: false
-        # port: 80
+        port: 80
 
     # Uncomment to switch to a non-permanent redirect.
     # status: 303

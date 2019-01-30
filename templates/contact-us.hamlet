@@ -1,20 +1,19 @@
-<div .container>
-    <div style="padding-bottom:2rem">
-        <div .text-center style="font-size:3rem; padding:3rem 0">Our Team
+<div style="padding-bottom:2rem">
+    <div .text-center.title>Our Team
 
-        $forall (profile, name, role, isReverse) <- staff
-            <div class="profile-row #{isReverse}">
-                <div>
-                    <img .profile.d-block.mx-auto.rounded-circle src=@?{profile}>
-                <div .profile-text-square>
-                    <div .text-center.profile-title>
-                        #{name}<br>#{role}
+    $forall (profile, name, role, isReverse) <- staff
+        <div class="profile-row #{isReverse}">
+            <div>
+                <img .profile.d-block.mx-auto.rounded-circle src=@?{profile}>
+            <div .profile-text-square>
+                <div .text-center.profile-title>
+                    #{name}<br>#{role}
 
-        <div .text-center style="font-size:3rem; padding-top:100px; padding-bottom:1.5rem;">Find Us
+    <div .text-center.title>Find Us
 
-        <div .mx-auto style="width:800px">
-            <iframe width="800" height="500" frameborder="0" src="https://www.bing.com/maps/embed?h=500&w=800&cp=22.546254487677203~114.10735419690471&lvl=16&typ=d&sty=r&src=SHELL&FORM=MBEDV8" scrolling="no">
-            <div style="white-space: nowrap; text-align: center; width: 800px; padding: 6px 0;">
-                <a id="largeMapLink" target="_blank" href="https://www.bing.com/maps?cp=22.546254487677203~114.10735419690471&amp;sty=r&amp;lvl=16&amp;FORM=MBEDLD">View Larger Map
-                &nbsp; | &nbsp;
-                <a id="dirMapLink" target="_blank" href="https://www.bing.com/maps/directions?cp=22.546254487677203~114.10735419690471&amp;sty=r&amp;lvl=16&amp;rtp=~pos.22.546254487677203_114.10735419690471____&amp;FORM=MBEDLD">Get Directions
+    <div .mx-auto.map>
+        <iframe width="800" height="500" frameborder="0" src="https://www.bing.com/maps/embed?h=500&w=800&cp=22.546254487677203~114.10735419690471&lvl=16&typ=d&sty=r&src=SHELL&FORM=MBEDV8" scrolling="no">
+        <div .map style="white-space: nowrap; text-align: center; padding: 6px 0;">
+            <a id="largeMapLink" target="_blank" href="https://www.bing.com/maps?cp=22.546254487677203~114.10735419690471&amp;sty=r&amp;lvl=16&amp;FORM=MBEDLD">View Larger Map
+            &nbsp; | &nbsp;
+            <a id="dirMapLink" target="_blank" href="https://www.bing.com/maps/directions?cp=22.546254487677203~114.10735419690471&amp;sty=r&amp;lvl=16&amp;rtp=~pos.22.546254487677203_114.10735419690471____&amp;FORM=MBEDLD">Get Directions

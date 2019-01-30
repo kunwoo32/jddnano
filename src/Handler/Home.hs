@@ -25,12 +25,17 @@ data FileForm = FileForm
 -- functions. You can spread them across multiple files if you are so
 -- inclined, or create a single monolithic file.
 getHomeR :: Handler Html
-getHomeR = do
-    homeLayout $ do
-        setTitle "Welcome To Yesod!"
-        la <- formattedLanguages
-        let langs = intercalate ", " la
+getHomeR =
+    defaultLayout $ do
+        setTitle "JDD Nano"
+        let submenu = $(widgetFile "product-submenu")
         $(widgetFile "homepage")
+        
+--    homeLayout $ do
+--        setTitle "Welcome To Yesod!"
+--        la <- formattedLanguages
+--        let langs = intercalate ", " la
+--        $(widgetFile "homepage")
 
 postHomeR :: Handler Html
 postHomeR = do

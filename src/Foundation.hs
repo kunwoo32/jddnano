@@ -129,7 +129,7 @@ navbarWidget = do
     
     let submenu = $(widgetFile "product-submenu")
     $(widgetFile "navbar")
-
+{--
 homeLayout :: Widget -> Handler Html
 homeLayout widget = do
     master <- getYesod
@@ -152,7 +152,7 @@ homeLayout widget = do
         let navbar = navbarWidget
         $(widgetFile "home-layout")
     withUrlRenderer $(hamletFile "templates/default-layout-wrapper.hamlet")
-
+--}
 -- Please see the documentation for the Yesod typeclass. There are a number
 -- of settings which can be configured by overriding methods here.
 instance Yesod App where
@@ -201,6 +201,7 @@ instance Yesod App where
 
         pc <- widgetToPageContent $ do
             let navbar = navbarWidget
+            let footer = $(widgetFile "footer")
             $(widgetFile "default-layout")
         withUrlRenderer $(hamletFile "templates/default-layout-wrapper.hamlet")
 

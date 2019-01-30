@@ -1,4 +1,4 @@
-<div .container style="padding-top:32px;">
+<div .container.submenu style="padding-top:32px;">
     <div .row>
         <div .col>
             <a href=@{ProductCategoryR "headphones"}>

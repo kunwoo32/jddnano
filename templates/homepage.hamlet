@@ -1,32 +1,46 @@
-<div id="bannerCarousel" .carousel.slide data-ride="carousel" data-interval="false" data-keyboard="true" style="width:100%; height:100vh">
+<div id="bannerCarousel" .carousel.slide.desktop-feed data-ride="carousel" data-interval="false" data-keyboard="true" style="width:100%; height:100vh">
     <ol class="carousel-indicators">
         <li data-target="#bannerCarousel" data-slide-to="0" class="active"></li>
         <li data-target="#bannerCarousel" data-slide-to="1"></li>
         <li data-target="#bannerCarousel" data-slide-to="2"></li>
         <li data-target="#bannerCarousel" data-slide-to="3"></li>
-        <li data-target="#bannerCarousel" data-slide-to="4"></li>
     <div class="carousel-inner">
         <div class="carousel-item active">
-            <div style="background-image:url(@{StaticR images_twoHeadphonesBanner_jpg}); background-position:center; background-size:cover; width:100%; height:100vh">
-            <div style="position:absolute; top:0; width:100%; height:100vh; display:flex">
-                <div .container.my-auto>
-                    <div style="font-size:2rem">Lorem Ipsum
-                    <div style="font-size:3rem">Dolor sit amet
-                    <div style="font-size:2rem">Consectetur adipiscing elit sed do
+            <div .imgs-wrapper>
+                <div .background.bg-centered style="background-image:url(@{StaticR images_background1_jpg});">
+                <img .center-y60 src=@{StaticR images_foreground1_png} style="width:1000px;">
+        <div class="carousel-item">
+            <div .imgs-wrapper>
+                <div .background.bg-centered style="background:#ffffff">
+                <img .foreground-centered src=@{StaticR images_foreground2_jpg} style="width:1200px;">
+        <div class="carousel-item">
+            <div .imgs-wrapper>
+                <div .background.bg-centered style="background-image:url(@{StaticR images_background3_jpg});">
+                <img .center-bottom src=@{StaticR images_foreground3_png} style="width:1000px;">
+        <div class="carousel-item">
+            <div .imgs-wrapper>
+                <div .background.bg-centered style="background-image:url(@{StaticR images_background4_jpg});">
+                <img .right-center src=@{StaticR images_foreground4_png} style="height:70%;">
+        <!--
         <div .carousel-item>
             <div style="background-image:url(@{StaticR images_banner2_jpg}); background-position:bottom; background-size:cover; width:100%; height:100vh">
         <div .carousel-item>
             <div style="background-image:url(@{StaticR images_banner3_jpg}); background-position:top; background-size:cover; width:100%; height:100vh">
         <div .carousel-item>
             <div style="background-image:url(@{StaticR images_banner4_jpg}); background-position:center; background-size:cover; width:100%; height:100vh">
-        <div class="carousel-item">
-            <div style="background-image:url(@{StaticR images_banner5_jpg}); background-position:center; background-size:cover; width:100%; height:100vh">
+        -->
     <a class="carousel-control-prev" href="#bannerCarousel" role="button" data-slide="prev">
         <span class="carousel-control-prev-icon" aria-hidden="true"></span>
         <span class="sr-only">Previous</span>
     <a class="carousel-control-next" href="#bannerCarousel" role="button" data-slide="next">
         <span class="carousel-control-next-icon" aria-hidden="true"></span>
         <span class="sr-only">Next</span>
+
+<div .mobile-feed>
+    <img src=@{StaticR images_banner1_jpg}>
+    <img src=@{StaticR images_banner2_jpg}>
+    <img src=@{StaticR images_banner3_jpg}>
+    <img src=@{StaticR images_banner4_jpg}>
 
 <script>
     \$('#bannerCarousel').bind('mousewheel DOMMouseScroll', function(e){if(e.originalEvent.wheelDelta > 0 || e.originalEvent.detail < 0) {$(this).carousel("prev");} else {$(this).carousel("next");}});

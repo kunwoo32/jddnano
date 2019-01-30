@@ -1,13 +1,26 @@
 img.profile {
-    height: 390px;
-    width: 390px;
+    height: auto;
+    width: 67%;
 }
 
+@media (min-width: 576px) {
+    img.profile {
+        width: 390px;
+    }
+}
+
+
 .profile-row {
-    display: flex;
-    width:800px;
+    width: 100%;
     margin: 0 auto;
     padding: 1rem 0;
+}
+
+@media (min-width: 992px) {
+    .profile-row {
+        width: 800px;
+        display: flex;
+    }
 }
 
 .reversed {
@@ -15,17 +28,49 @@ img.profile {
 }
 
 .profile-text-square {
-    width: 50%;
-    position: relative;
+    width: 100%;
+    margin: 0 auto;
+    padding-top: 1rem;
+    padding-bottom: 50px;
+}
+
+@media (min-width: 992px) {
+    .profile-text-square {
+        width: 50%;
+        margin: 0;
+        padding-top: 0;
+        padding-bottom: 0;
+        position: relative;
+    }
 }
 
 .profile-title {
-    font-size: 2rem;
-    position: absolute;
-    top: 50%;
-    left: 50%;
-    transform: translate(-50%,-50%);
-    -ms-transform: translate(-50%,-50%);
-    -webkit-transform: translate(-50%,-50%);
+    font-size: 1.4rem;
     width: 300px;
+    margin: 0 auto;
+}
+
+
+@media (min-width: 992px) {
+    .profile-title {
+        margin: 0;
+        font-size: 2rem;
+        position: absolute;
+        top: 50%;
+        left: 50%;
+        transform: translate(-50%,-50%);
+        -ms-transform: translate(-50%,-50%);
+        -webkit-transform: translate(-50%,-50%);
+    }
+}
+
+
+.map {
+    width: 100%;
+}
+
+@media (min-width: 800px) {
+    .map {
+        width: 800px;
+    }
 }

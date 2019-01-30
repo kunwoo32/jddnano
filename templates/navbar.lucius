@@ -1,8 +1,3 @@
-.hover-dropdown:hover .hover-dropdown-content {
-    display: block;
-    z-index: 5;
-}
-
 .hover-dropdown-content {
     display: none;
     position: absolute;
@@ -11,6 +6,21 @@
     width: 100%;
 }
 
+.dropdown-toggle::after {
+    display: none;
+}
+
 .nav-item {
     padding: 0 2rem;
+}
+
+@media (min-width: 992px) {
+    .hover-dropdown:hover .hover-dropdown-content {
+        display: block;
+        z-index: 5;
+    }
+
+    .dropdown-toggle::after {
+        display: inline-block;
+    }
 }

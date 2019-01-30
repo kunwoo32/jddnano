@@ -1,0 +1,19 @@
+.footer-big {
+    font-size: 14px;
+    line-height: 2;
+}
+
+.footer-small {
+    font-size: 10px;
+    line-height: 2;
+}
+
+@media (min-width: 576px) {
+.footer-big {
+    font-size: 16px;
+}
+
+.footer-small {
+    font-size: 12px;
+}
+}

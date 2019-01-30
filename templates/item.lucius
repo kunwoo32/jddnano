@@ -1,0 +1,9 @@
+img.feed {
+    width: 100%;
+}
+
+@media (min-width: 600px) {
+    img.feed {
+        width: 600px;
+    }
+}

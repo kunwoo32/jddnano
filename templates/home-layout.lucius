@@ -1,4 +1,3 @@
-.masthead,
 .navbar {
     background-color: #343a40;
 }
